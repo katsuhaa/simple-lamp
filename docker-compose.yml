@@ -1,0 +1,21 @@
+version: "3"
+# service
+services:
+  # web
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    restart: always
+    depends_on:
+      - mysql
+  # mysql
+  mysql:
+    image: mariadb:10.3.38-focal
+    ports:
+      - "3306:3306"
+    volumes:
+    - ./mysql/data:/var/lib/mysql
+    - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
